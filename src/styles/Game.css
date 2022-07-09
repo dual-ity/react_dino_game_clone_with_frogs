@@ -1,0 +1,13 @@
+#Game {
+  width: 100%;
+  height: 100%;
+  border: 4px solid #807c7c;
+  border-radius: 25px;
+  position: absolute;
+  overflow: hidden;
+  display: flex;
+}
+
+#Game:focus {
+  outline: none;
+}

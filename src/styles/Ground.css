@@ -1,0 +1,11 @@
+.Ground {
+  position: absolute;
+  width: inherit;
+  bottom: 0;
+}
+
+.Ground > img {
+  width: 200%;
+  position: absolute;
+  bottom: 0;
+}
