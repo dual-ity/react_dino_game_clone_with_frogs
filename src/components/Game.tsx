@@ -62,18 +62,7 @@ class Game extends React.Component<props, state> {
     const { isOn, didLose } = this.state;
 
     if (isOn) {
-      const {
-        delta,
-        lastTime,
-        groundLeft,
-        speed,
-        isJumping,
-        frogBottom,
-        yFrogPosition,
-        nextLilyPadTime,
-        lilyPads,
-        score,
-      } = this.state;
+      const { lastTime, isJumping } = this.state;
 
       if (lastTime === 0) {
         this.setState({ lastTime: time });
@@ -85,55 +74,46 @@ class Game extends React.Component<props, state> {
 
       if (isJumping) {
         this.setState(
-          {
+          ({ frogBottom, yFrogPosition, delta }) => ({
             frogBottom: frogBottom + yFrogPosition * delta,
             yFrogPosition: yFrogPosition - delta * GRAVITY,
-          },
+          }),
           () => {
             this.resetJump();
           }
         );
       }
 
-      if (nextLilyPadTime <= 0) {
-        console.log(
-          nextLilyPadTime +
-            Math.floor(
-              Math.random() *
-                (LILY_PAD_INTERVAL_MAX - LILY_PAD_INTERVAL_MIN + 1) +
-                LILY_PAD_INTERVAL_MIN
-            )
-        );
-      }
-
-      this.setState({
-        delta: time - lastTime,
-        lastTime: time,
-        groundLeft:
-          groundLeft > 200 ? groundLeft - 200 : groundLeft + delta * speed,
-        lilyPads:
-          nextLilyPadTime <= 0
-            ? [
-                ...lilyPads
+      this.setState(
+        ({ groundLeft, delta, speed, lilyPads, nextLilyPadTime, score }) => ({
+          delta: time - lastTime,
+          lastTime: time,
+          groundLeft:
+            groundLeft > 200 ? groundLeft - 200 : groundLeft + delta * speed,
+          lilyPads:
+            nextLilyPadTime <= 0
+              ? [
+                  ...lilyPads
+                    .filter((lilyPad) => lilyPad > -100)
+                    .map((lilyPad) => lilyPad - delta * speed),
+                  100,
+                ]
+              : lilyPads
                   .filter((lilyPad) => lilyPad > -100)
                   .map((lilyPad) => lilyPad - delta * speed),
-                100,
-              ]
-            : lilyPads
-                .filter((lilyPad) => lilyPad > -100)
-                .map((lilyPad) => lilyPad - delta * speed),
-        nextLilyPadTime:
-          nextLilyPadTime <= 0
-            ? nextLilyPadTime +
-              Math.floor(
-                Math.random() *
-                  (LILY_PAD_INTERVAL_MAX - LILY_PAD_INTERVAL_MIN + 1) +
-                  LILY_PAD_INTERVAL_MIN
-              )
-            : nextLilyPadTime - delta * speed,
-        speed: speed + delta * SPEED_INCREMENT,
-        score: score + SCORE_INCREMENT + speed * 10,
-      });
+          nextLilyPadTime:
+            nextLilyPadTime <= 0
+              ? nextLilyPadTime +
+                Math.floor(
+                  Math.random() *
+                    (LILY_PAD_INTERVAL_MAX - LILY_PAD_INTERVAL_MIN + 1) +
+                    LILY_PAD_INTERVAL_MIN
+                )
+              : nextLilyPadTime - delta * speed,
+          speed: speed + delta * SPEED_INCREMENT,
+          score: score + SCORE_INCREMENT + speed * 10,
+        })
+      );
 
       this.animateFrog();
     }
@@ -143,20 +123,20 @@ class Game extends React.Component<props, state> {
   };
 
   animateFrog = () => {
-    const { currentFrameTime, frogFrame, delta, speed } = this.state;
+    const { currentFrameTime } = this.state;
 
     if (currentFrameTime >= FRAME_TIME) {
-      this.setState({
+      this.setState(({ frogFrame }) => ({
         frogFrame: (frogFrame + 1) % FROG_FRAME_COUNT,
-      });
+      }));
     }
 
-    this.setState({
+    this.setState(({ currentFrameTime, delta, speed }) => ({
       currentFrameTime:
         currentFrameTime >= FRAME_TIME
           ? currentFrameTime - FRAME_TIME
           : currentFrameTime + delta * speed,
-    });
+    }));
   };
 
   handleLoss = () => {
@@ -183,6 +163,7 @@ class Game extends React.Component<props, state> {
         screenText: LOSS_TEXT,
         frogFrame: 2,
       });
+
       if (score > Number(window.localStorage.getItem("highScore"))) {
         window.localStorage.setItem("highScore", String(score));
       }

@@ -10,7 +10,7 @@ class Start extends React.Component<props> {
 
     return (
       <div className="Start">
-        {text}{" "}
+        {text}
         {didLose ? <RetryButton onClick={onRetryButtonClick} /> : undefined}
       </div>
     );
