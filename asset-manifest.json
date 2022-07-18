@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/react_dino_game_clone_with_frogs/static/css/main.a8456fb8.css",
+    "main.js": "/react_dino_game_clone_with_frogs/static/js/main.6ae71c86.js",
+    "index.html": "/react_dino_game_clone_with_frogs/index.html",
+    "main.a8456fb8.css.map": "/react_dino_game_clone_with_frogs/static/css/main.a8456fb8.css.map",
+    "main.6ae71c86.js.map": "/react_dino_game_clone_with_frogs/static/js/main.6ae71c86.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a8456fb8.css",
+    "static/js/main.6ae71c86.js"
+  ]
+}
