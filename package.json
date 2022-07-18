@@ -2,7 +2,7 @@
   "name": "jumping_frog",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://dual-ity.github.io/react_dino_game_clone_with_frogs/",
+  "homepage": "https://dual-ity.github.io/react_dino_game_clone_with_frogs",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
