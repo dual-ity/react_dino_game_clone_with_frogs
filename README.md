@@ -1,5 +1,7 @@
 # Google Dinosaur Game Clone in React, now with Frogs
 
+Available at https://dual-ity.github.io/react_dino_game_clone_with_frogs/
+
 ![dinoCloneReactVideo](https://user-images.githubusercontent.com/87505244/178117245-79a294d9-1511-43a6-af32-55ea5ba45af5.gif)
 
 ## Available Scripts
